@@ -1,11 +1,26 @@
-type Dog {
-  name: String!
+# import * from './generated/prisma.graphql'
+
+input createItemInput {
+  title: String!
+  description: String!
+  image: String
+  largeImage: String
+  price: Int!
+}
+
+input updateItemInput {
+  id: ID!
+  title: String
+  description: String
+  price: Int
 }
 
 type Mutation {
-  createDog(name: String!): Dog
+  createItem(data: createItemInput): Item!
+  updateItem(data: updateItemInput): Item!
 }
 
 type Query {
-  dogs: [Dog]!
+  item(where: ItemWhereUniqueInput!): Item
+  items: [Item]!
 }
