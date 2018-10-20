@@ -1,13 +1,25 @@
 const Mutation = {
-  async createItem(parent, args, ctx, info) {
+  async createItem(parent, { data }, ctx, info) {
     const item = await ctx.db.mutation.createItem(
       {
-        data: { ...args.data },
+        data: { ...data },
       },
       info,
     );
 
     return item;
+  },
+  updateItem(parent, { data }, ctx, info) {
+    const updates = { ...data };
+    delete updates.id;
+
+    return ctx.db.mutation.updateItem(
+      {
+        data: updates,
+        where: { id: data.id },
+      },
+      info,
+    );
   },
   // createDog(parent, args, ctx, info) {
   //   console.log(args)
