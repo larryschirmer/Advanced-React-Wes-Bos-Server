@@ -15,12 +15,18 @@ input updateItemInput {
   price: Int
 }
 
+input deleteItemInput {
+  id: ID!
+}
+
 type Mutation {
   createItem(data: createItemInput): Item!
   updateItem(data: updateItemInput): Item!
+  deleteItem(data: deleteItemInput): Item
 }
 
 type Query {
+  itemsConnection(where: ItemWhereInput): ItemConnection!
   item(where: ItemWhereUniqueInput!): Item
-  items: [Item]!
+  items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, first: Int): [Item]!
 }
