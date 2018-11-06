@@ -21,6 +21,19 @@ const Mutation = {
       info,
     );
   },
+  async deleteItem(parent, { data }, ctx, info) {
+    const where = { id: data.id };
+
+    const item = await ctx.db.query.item(
+      { where },
+      `{
+        id 
+        title
+      }`,
+    );
+
+    return ctx.db.mutation.deleteItem({ where }, info);
+  },
   // createDog(parent, args, ctx, info) {
   //   console.log(args)
   // }
